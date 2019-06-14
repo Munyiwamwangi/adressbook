@@ -1,4 +1,4 @@
-//USER INTERFACE
+// user interface logic
 $(document).ready(function() {
 
   $("#add-address").click(function() {
@@ -20,12 +20,6 @@ $(document).ready(function() {
 
   $("form#new-contact").submit(function(event) {
     event.preventDefault();
-    
-    $("input#new-first-name").val("");
-    $("input#new-last-name").val("");
-    $("input.new-street").val("");
-    $("input.new-city").val("");
-    $("input.new-county").val("");
 
     var inputtedFirstName = $("input#new-first-name").val();
     var inputtedLastName = $("input#new-last-name").val();
@@ -48,29 +42,33 @@ $(document).ready(function() {
       $(".last-name").text(newContact.lastName);
       $("ul#addresses").text("");
       newContact.addresses.forEach(function(address) {
-        $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
+      $("ul#addresses").append("<li>" + address.fullAddress() + "</li>");
       });
     });
-
-
+// Reset the code.
+    $("input#new-first-name").val("");
+    $("input#new-last-name").val("");
+    $("input.new-street").val("");
+    $("input.new-city").val("");
+    $("input.new-county").val("");
 
   });
 });
-//BUSINESS LOGIC;
+
+// business logic
 function Contact(first, last) {
-this.firstName = first;
-this.lastName = last;
-this.addresses = [];
-}
-function Address(street, city, county) {
-this.street = street;
-this.city = city;
-this.county = county;
-}
-Contact.prototype.fullName=function(){
+    this.firstName = first;
+    this.lastName = last;
+    this.addresses = [];
+  }
+  function Address(street, city, county) {
+    this.street = street;
+    this.city = city;
+    this.county = county;
+  }
+Contact.prototype.fullName = function() {
   return this.firstName + " " + this.lastName;
 }
-
 Address.prototype.fullAddress = function() {
   return this.street + ", " + this.city + ", " + this.county;
 }
